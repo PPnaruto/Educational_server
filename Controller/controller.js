@@ -40,16 +40,20 @@ let getStudentCourses = async()=>{
         // data[i] = await Course.findById()
         // console.log(data[i].courses);
         const arr = data[i].courses;
+        const courses =[]
         for(let j=0;j<arr.length;j++){
-            // console.log(arr[j]);
-
+            // console.log(arr[j]);         
             const {course_name,duration} = await Course.findById(arr[j].course_id);
-            data[i].course_name = course_name,
-            data[i].duration = duration;
-           
-            console.log({course_name,duration});
+            let obj = {};
+            obj.course_name = course_name,
+            obj.duration = duration;
+            courses.push(obj);
+            // console.log({course_name,duration});
         }
         delete data[i].courses;
+        console.log(courses);
+        // data['courses'] = courses;
+        data[i].courses = courses;
     }
     
     return data;
